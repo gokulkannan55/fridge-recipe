@@ -10,5 +10,12 @@ if (!process.env.DATABASE_URL) {
   );
 }
 
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-export const db = drizzle(pool, { schema });
+  // Development fallback: do not initialize Postgres. Allow upper layers
+  // to provide an in-memory storage implementation when `db` is undefined.
+  console.warn(
+    "DATABASE_URL not set — running with in-memory fallback storage (development only).",
+  );
+} else {
+  pool = new Pool({ connectionString: process.env.DATABASE_URL });
+  db = drizzle(pool, { schema });
+}
