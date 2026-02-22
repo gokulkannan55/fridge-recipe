@@ -88,10 +88,9 @@ app.use((req, res, next) => {
   // ALWAYS serve the app on the port specified in the environment variable PORT
   // Other ports are firewalled. Default to 5000 if not specified.
   // this serves both the API and the cl  const port = parseInt(pr  httpServer.listen(
-  const PORT = process.env.PORT || 5000;
+  // ALWAYS serve the app on the port specified in the environment variable PORT
+const PORT = parseInt(process.env.PORT || "5000", 10);
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server running on port ${PORT}`);
+httpServer.listen(PORT, "0.0.0.0", () => {
+  log(`Server running on port ${PORT}`);
 });})();
-
-export default httpServer;
